@@ -1,3 +1,4 @@
+from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.postgres.fields import (
     ArrayField, HStoreField,
@@ -44,6 +45,10 @@ class TestParent(Model):
 
 
 class TestChild(TestParent):
+    """
+    A OneToOneField to TestParent is automatically added here.
+    https://docs.djangoproject.com/en/3.2/topics/db/models/#multi-table-inheritance
+    """
     public = BooleanField(default=False)
     permissions = ManyToManyField('auth.Permission', blank=True)
 
@@ -53,11 +58,9 @@ class PostgresModel(Model):
                            null=True, blank=True)
 
     hstore = HStoreField(null=True, blank=True)
-    try:
+    if DJANGO_VERSION < (4, 0):
         from django.contrib.postgres.fields import JSONField
         json = JSONField(null=True, blank=True)
-    except ImportError:
-        pass
 
     int_range = IntegerRangeField(null=True, blank=True)
     try:

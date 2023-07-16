@@ -1,6 +1,89 @@
 What’s new in django-cachalot?
 ==============================
 
+2.6.0
+-----
+
+- Dropped Django 2.2 and 4.0 support
+- Added Django 4.2 and Python 3.11 support
+- Added psycopg support (#229)
+- Updated tests to account for the `BEGIN` and `COMMIT` query changes in Django 4.2
+- Standardized django version comparisons in tests
+
+2.5.3
+-----
+
+- Verify get_meta isn't none before requesting db_table (#225 #226)
+
+2.5.2
+-----
+
+- Added Django 4.1 support (#217)
+
+2.5.1
+-----
+
+- Table invalidation condition enhanced (#213)
+- Add test settings to sdist (#203)
+- Include docs in sdist (#202)
+
+2.5.0
+-----
+
+- Add final SQL check to include potentially overlooked tables when looking up involved tables (#199)
+- Add ``CACHALOT_FINAL_SQL_CHECK`` for enabling Final SQL check
+
+2.4.5
+-----
+
+- Dropped Python 3.6 and Django 3.1 support. Added Django 4.0 support (#208)
+
+2.4.4
+-----
+
+- Handle queryset implementations without lhs/rhs attribute (#204)
+- Add Python 3.10 support (#206)
+- (Internal) Omit additional unnecessary code in coverage
+
+2.4.3
+-----
+
+- Fix annotated Now being cached (#195)
+- Fix conditional annotated expressions not being cached (#196)
+- Simplify annotation handling by using the flatten method (#197)
+- Fix Django 3.2 default_app_config deprecation (#198)
+- (Internal) Pinned psycopg2 to <2.9 due to Django 2.2 incompatibility
+
+2.4.2
+-----
+
+- Add convenience settings `CACHALOT_ONLY_CACHABLE_APPS`
+  and `CACHALOT_UNCACHABLE_APPS` (#187)
+- Drop support for Django 3.0 (#189)
+- (Internal) Added Django main-branch CI on cron job
+- (Internal) Removed duplicate code (#190)
+
+2.4.1
+-----
+
+- Fix Django requirement constraint to include 3.2.X not just 3.2
+- (Internal) Deleted obsolete travis-matrix.py file
+
+2.4.0
+-----
+
+- Add support for Django 3.2 (#181)
+- Remove enforced system check for Django version (#175)
+- Drop support for Django 2.0-2.1 and Python 3.5 (#181)
+- Add support for Pymemcache for Django 3.2+ (#181)
+- Reverts #157 with proper fix. (#181)
+- Add ``CACHALOT_ADDITIONAL_TABLES`` setting for unmanaged models (#183)
+
+2.3.5
+-----
+
+- Fix cachalot_disabled (#174)
+
 2.3.4
 -----
 
@@ -281,6 +364,7 @@ Fixed:
         pk__in=User.objects.filter(
             pk__in=User.objects.filter(
                 user_permissions__in=Permission.objects.all())))
+
 - Avoids setting useless cache keys by using table names instead of
   Django-generated table alias
 

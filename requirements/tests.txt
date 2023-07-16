@@ -2,10 +2,12 @@
 
 django>=2
 
-psycopg2-binary
+psycopg2
+psycopg
 mysqlclient
 django-redis
 python-memcached
+pymemcache
 pylibmc
 
 pytz
