@@ -35,43 +35,43 @@ CACHABLE_PARAM_TYPES = {
 }
 UNCACHABLE_FUNCS = {Now, TransactionNow}
 
-# Check if psycopg2 or 3 is used
-connection.ensure_connection()
-underlying_connection = connection.connection
+# # Check if psycopg2 or 3 is used
+# connection.ensure_connection()
+# underlying_connection = connection.connection
+#
+# if underlying_connection.__class__.__module__.startswith('psycopg2'):
+from psycopg2 import Binary
+from psycopg2.extras import (
+    NumericRange, DateRange, DateTimeRange, DateTimeTZRange, Inet, Json)
 
-if underlying_connection.__class__.__module__.startswith('psycopg2'):
-    from psycopg2 import Binary
-    from psycopg2.extras import (
-        NumericRange, DateRange, DateTimeRange, DateTimeTZRange, Inet, Json)
-
-    CACHABLE_PARAM_TYPES.update((
-        Binary, NumericRange, DateRange, DateTimeRange, DateTimeTZRange, Inet,
-        Json,))
-elif underlying_connection.__class__.__module__.startswith('psycopg'):
-    from django.db.backends.postgresql.psycopg_any import (
-        NumericRange, DateRange, DateTimeRange, DateTimeTZRange, Inet,
-    )
-
-    from psycopg.dbapi20 import Binary
-
-    from psycopg.types.numeric import (
-        Int2, Int4, Int8, Float4, Float8,
-    )
-
-    from ipaddress import (
-        IPv4Address,
-        IPv6Address,
-    )
-
-    from psycopg.types.json import (
-        Json, Jsonb,
-    )
-
-    CACHABLE_PARAM_TYPES.update((
-        NumericRange, DateRange, DateTimeRange, DateTimeTZRange, Inet, Json, Jsonb,
-        Int2, Int4, Int8, Float4, Float8, IPv4Address, IPv6Address,
-        Binary,
-    ))
+CACHABLE_PARAM_TYPES.update((
+    Binary, NumericRange, DateRange, DateTimeRange, DateTimeTZRange, Inet,
+    Json,))
+# elif underlying_connection.__class__.__module__.startswith('psycopg'):
+#     from django.db.backends.postgresql.psycopg_any import (
+#         NumericRange, DateRange, DateTimeRange, DateTimeTZRange, Inet,
+#     )
+#
+#     from psycopg.dbapi20 import Binary
+#
+#     from psycopg.types.numeric import (
+#         Int2, Int4, Int8, Float4, Float8,
+#     )
+#
+#     from ipaddress import (
+#         IPv4Address,
+#         IPv6Address,
+#     )
+#
+#     from psycopg.types.json import (
+#         Json, Jsonb,
+#     )
+#
+#     CACHABLE_PARAM_TYPES.update((
+#         NumericRange, DateRange, DateTimeRange, DateTimeTZRange, Inet, Json, Jsonb,
+#         Int2, Int4, Int8, Float4, Float8, IPv4Address, IPv6Address,
+#         Binary,
+#     ))
 
 
 def check_parameter_types(params):
